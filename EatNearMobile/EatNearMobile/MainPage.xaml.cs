@@ -13,5 +13,10 @@ namespace EatNearMobile
         {
             InitializeComponent();
         }
+
+        void OnTranslate(object sender, EventArgs e)
+        {
+
+        }
     }
 }

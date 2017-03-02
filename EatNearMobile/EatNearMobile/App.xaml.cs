@@ -13,7 +13,7 @@ namespace EatNearMobile
         {
             InitializeComponent();
 
-            MainPage = new EatNearMobile.MainPage();
+            MainPage = new EatNearMobile.MapPage();
         }
 
         protected override void OnStart()
