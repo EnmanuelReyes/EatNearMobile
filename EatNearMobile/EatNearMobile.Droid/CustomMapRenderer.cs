@@ -59,14 +59,7 @@ namespace EatNearMobile.Droid
                     throw new Exception("Custom pin not found");
                 }
 
-                if (customPin.Id == "Xamarin")
-                {
-                    view = inflater.Inflate(Resource.Layout.XamarinMapInfoWindow, null);
-                }
-                else
-                {
                     view = inflater.Inflate(Resource.Layout.MapInfoWindow, null);
-                }
 
                 var infoTitle = view.FindViewById<TextView>(Resource.Id.InfoWindowTitle);
                 var infoSubtitle = view.FindViewById<TextView>(Resource.Id.InfoWindowSubtitle);
@@ -104,14 +97,9 @@ namespace EatNearMobile.Droid
             {
                 throw new Exception("Custom pin not found");
             }
-
-            if (!string.IsNullOrWhiteSpace(customPin.Url))
-            {
-                var url = Android.Net.Uri.Parse(customPin.Url);
-                var intent = new Intent(Intent.ActionView, url);
-                intent.AddFlags(ActivityFlags.NewTask);
-                Android.App.Application.Context.StartActivity(intent);
-            }
+			var page = new EatNearMobile.RestaurantPage(customPin.Restaurant) as RestaurantPage;
+				Xamarin.Forms.Application.Current.MainPage.Navigation.PushModalAsync(page);
+              
         }
 
         private CustomPin GetCustomPin(Marker annotation)

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="EatNearMobile.RestaurantPage">
+	<ScrollView>
+		<StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Orientation="Vertical" Spacing="15">
+			<Label Text="Nombre" VerticalOptions="Center" HorizontalOptions="Center" />
+			<Entry Text="Nombre del Restaurante" x:Name="Name" VerticalOptions="Center" HorizontalOptions="Center" IsEnabled="false" />
+			<Label Text="Tipo de Restaurante" VerticalOptions="Center" HorizontalOptions="Center" />
+			<Entry Text="Tipo de Restaurante" x:Name="RestaurantType" VerticalOptions="Center" HorizontalOptions="Center" IsEnabled="false" />
+			<Label Text="Tipo de Comida" VerticalOptions="Center" HorizontalOptions="Center" />
+			<Entry Text="Tipo de Comida" x:Name="FoodType" VerticalOptions="Center" HorizontalOptions="Center" IsEnabled="false" />
+			<Label Text="Precio Minimo" VerticalOptions="Center" HorizontalOptions="Center" />
+			<Entry Text="Precio Minimo" x:Name="MinPrice" VerticalOptions="Center" HorizontalOptions="Center" IsEnabled="false" />
+			<Label Text="Precio Maximo" VerticalOptions="Center" HorizontalOptions="Center" />
+			<Entry Text="Precio Maximo" x:Name="MaxPrice" VerticalOptions="Center" HorizontalOptions="Center" IsEnabled="false" />
+			<Label Text="Numero de Telefono" VerticalOptions="Center" HorizontalOptions="Center" />
+			<Entry Text="Numero de Telefono" x:Name="PhoneNumber" VerticalOptions="Center" HorizontalOptions="Center" IsEnabled="false" />
+			<Button Text="Llamar" x:Name="ButtonCall" Clicked="Call"/>
+			<Label Text="Rating" VerticalOptions="Center" HorizontalOptions="Center" />
+			<Picker Title="Rating" x:Name="PickerRating" HorizontalOptions="FillAndExpand">
+				<Picker.Items>
+					<x:String>1</x:String>
+					<x:String>2</x:String>
+					<x:String>3</x:String>
+					<x:String>4</x:String>
+					<x:String>5</x:String>
+				</Picker.Items>
+			</Picker>
+			<Button Text="Actualizar Rating" Clicked="UpdateRating"/>
+		</StackLayout>
+	</ScrollView>
+</ContentPage>
