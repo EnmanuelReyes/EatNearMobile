@@ -27,6 +27,7 @@ namespace EatNearMobile.Droid
         GoogleMap map;
         List<CustomPin> customPins;
         bool isDrawn;
+        CustomMap formsMap;
 
 
         protected override void OnElementChanged(ElementChangedEventArgs<Map> e)
@@ -40,9 +41,9 @@ namespace EatNearMobile.Droid
 
             if (e.NewElement != null)
             {
-                var formsMap = (CustomMap)e.NewElement;
+                formsMap = (CustomMap)e.NewElement;
                 customPins = formsMap.CustomPins;
-                ((MapView)Control).GetMapAsync(this);
+                Control.GetMapAsync(this);
             }
         }
 
@@ -105,7 +106,7 @@ namespace EatNearMobile.Droid
         private CustomPin GetCustomPin(Marker annotation)
         {
             var position = new Position(annotation.Position.Latitude, annotation.Position.Longitude);
-            foreach (var pin in customPins)
+            foreach (var pin in formsMap.CustomPins)
             {
                 if (pin.Pin.Position == position)
                 {
@@ -118,12 +119,12 @@ namespace EatNearMobile.Droid
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             base.OnElementPropertyChanged(sender, e);
-
             if (e.PropertyName.Equals("VisibleRegion") && !isDrawn)
             {
+                map.UiSettings.ZoomControlsEnabled = false;
                 map.Clear();
 
-                foreach (var pin in customPins)
+                foreach (var pin in formsMap.CustomPins)
                 {
                     var marker = new MarkerOptions();
                     marker.SetPosition(new LatLng(pin.Pin.Position.Latitude, pin.Pin.Position.Longitude));

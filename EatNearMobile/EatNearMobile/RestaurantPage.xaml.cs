@@ -20,7 +20,7 @@ namespace EatNearMobile
 			this.FoodType.Text = restaurant.FoodType;
 			this.MinPrice.Text = restaurant.MinPrice;
 			this.MaxPrice.Text = restaurant.MaxPrice;
-			this.PickerRating.SelectedIndex = int.Parse(restaurant.Rating)-1;
+			this.PickerRating.SelectedIndex = restaurant.Rating-1;
 }
 
 
@@ -31,9 +31,13 @@ namespace EatNearMobile
 		}
 		void UpdateRating(object sender, EventArgs e)
 		{
-			var Rating = PickerRating.SelectedIndex + 1;
+			int Rating = PickerRating.SelectedIndex + 1;
+            Restaurant.Rating = Rating;
 			System.Diagnostics.Debug.WriteLine(Rating);
 			System.Diagnostics.Debug.WriteLine("kionda");
-		}
+            new RestService().UpdateRating(Restaurant);
+            DisplayAlert("Votacion", "Se ha enviado su votacion para este restaurante", "OK");
+
+        }
 	}
 }

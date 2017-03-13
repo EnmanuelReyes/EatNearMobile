@@ -10,66 +10,52 @@ namespace EatNearMobile
 {
     public partial class MapPage : ContentPage
     {
+        List<CustomPin> customPins;
+        RestService _RestService;
         public MapPage()
         {
             InitializeComponent();
-			var pin = new CustomPin
-			{
-				Pin = new Pin
-				{
-					Type = PinType.Place,
-					Position = new Position(18.479896, -69.921108),
-					Label = "Xamarin San Francisco Office",
-					Address = "394 Pacific Ave, San Francisco CA"
-				},
-				Restaurant = new Restaurant
-				{
-					Name = "Kueno",
-					PhoneNumber = "8094834309",
-					FoodType = "Frita",
-					Rating = "3",
-					MaxPrice = "250",
-					MinPrice = "100",
-					RestaurantType = "Expreso"
-				}
-			};
-
-			customMap.CustomPins = new List<CustomPin> { pin };
-			customMap.Pins.Add(pin.Pin);
-			//CallApi();
             customMap.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(18.479896, -69.921108), Distance.FromMiles(4.0)));
-
-
+            _RestService = new RestService();
+            LoadMarkers();
         }
 
-		async void CallApi()
-		{
-			var RestService = new RestService();
-			List<Restaurant> task = await RestService.GetRestaurants();
 
-			LoadMarkers(task);
 
-		}
+        async void LoadMarkers()
+        {
+            customMap.CustomPins = new List<CustomPin>();
+            foreach (var r in State.Restaurants)
+            {
+                var pin = new CustomPin
+                {
+                    Pin = new Pin
+                    {
+                        Type = PinType.Place,
+                        Position = new Position(r.Latitude, r.Longitude),
+                        Label = r.Name,
+                        Address = r.Address
+                    },
+                    Restaurant = r
+                };
+                customMap.Pins.Add(pin.Pin);
+                customMap.CustomPins.Add(pin);
+            }
+        }
+        public async void OnTapGestureRecognizerTapped(object sender, EventArgs args)
+        {
+            List<Restaurant> restaurants = await _RestService.GetRecommendedRestaurants();
+            if (restaurants.Count < 0)
+            {
+                await DisplayAlert("Sin Recomendaciones", "Actualmente no tenemos ninguna recomendacion para usted."
+                    + " Intente mas tarde", "OK");
+            }
+            else
+            {
+                await App.NavigationPage.Navigation.PushAsync(new RestaurantPage(restaurants[0]));
+                App.MenuIsPresented = false;
+            }
 
-		void LoadMarkers(List<Restaurant> restaurants) {
-			customMap.CustomPins = new List<CustomPin>();
-
-			foreach (var r in restaurants) { 
-				var pin = new CustomPin
-				{
-					Pin = new Pin
-					{
-						Type = PinType.Place,
-						Position = new Position(r.Latitude, r.Longitude),
-						Label = r.Name,
-						Address = r.Address
-					},
-					Restaurant = r
-				};
-				customMap.Pins.Add(pin.Pin);
-				customMap.CustomPins.Add(pin);
-
-			}
-		}
+        }
     }
 }
