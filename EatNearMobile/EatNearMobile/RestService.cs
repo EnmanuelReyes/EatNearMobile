@@ -24,7 +24,7 @@ namespace EatNearMobile
 		public async Task<List<Restaurant>> GetRestaurants()
 		{
 			var Restaurants = new List<Restaurant>();
-			var uri = new Uri("");
+			var uri = new Uri(string.Format(Constants.RestUrl, "/restaurants"));
 			var response = await client.GetAsync(uri);
 			if (response.IsSuccessStatusCode)
 			{

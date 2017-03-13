@@ -154,6 +154,10 @@
     <AndroidResource Include="Resources\layout\XamarinMapInfoWindow.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\drawable\ic_add_circle_black_48dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_add_circle_black_48dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_add_circle_black_48dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_add_circle_black_48dp.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\icon.png" />

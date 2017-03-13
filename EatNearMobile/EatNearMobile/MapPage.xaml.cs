@@ -13,12 +13,12 @@ namespace EatNearMobile
         public MapPage()
         {
             InitializeComponent();
-			/*var pin = new CustomPin
+			var pin = new CustomPin
 			{
 				Pin = new Pin
 				{
 					Type = PinType.Place,
-					Position = new Position(37.79752, -122.40183),
+					Position = new Position(18.479896, -69.921108),
 					Label = "Xamarin San Francisco Office",
 					Address = "394 Pacific Ave, San Francisco CA"
 				},
@@ -35,8 +35,8 @@ namespace EatNearMobile
 			};
 
 			customMap.CustomPins = new List<CustomPin> { pin };
-			customMap.Pins.Add(pin.Pin);*/
-			CallApi();
+			customMap.Pins.Add(pin.Pin);
+			//CallApi();
             customMap.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(18.479896, -69.921108), Distance.FromMiles(4.0)));
 
 
