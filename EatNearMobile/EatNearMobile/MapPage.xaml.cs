@@ -16,15 +16,14 @@ namespace EatNearMobile
         public MapPage()
         {
             InitializeComponent();
+			_RestService = new RestService();
             CallApi();
             customMap.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(18.479896, -69.921108), Distance.FromMiles(4.0)));
-            _RestService = new RestService();
         }
 
         async void CallApi()
         {
-            var RestService = new RestService();
-            List<Restaurant> task = await RestService.GetRestaurants();
+            List<Restaurant> task = await _RestService.GetRestaurants();
 
             LoadMarkers(task);
 
