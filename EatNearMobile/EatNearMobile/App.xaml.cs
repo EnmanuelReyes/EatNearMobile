@@ -14,7 +14,7 @@ namespace EatNearMobile
 		// https://wolfprogrammer.com/2016/07/22/navigation-using-mvvm-light/
 		public static NavigationPage NavigationPage { get; private set; }
 		private static RootPage RootPage;
-		public static bool MenuIsPresented
+        public static bool MenuIsPresented
 		{
 			get
 			{
@@ -25,6 +25,7 @@ namespace EatNearMobile
 				RootPage.IsPresented = value;
 			}
 		}
+
         public App()
         {
             InitializeComponent();

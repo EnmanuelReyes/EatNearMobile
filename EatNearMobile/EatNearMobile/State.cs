@@ -10,31 +10,13 @@ namespace EatNearMobile
     {
         public static List<Restaurant> Restaurants
         {
-            get
-            {
-                if (Restaurants == null)
-                {
-                    CallApi();
-                }
-                return Restaurants;
-            }
-            set { Restaurants = value; }
+            get; set;
         }
-        public static RestService _RestService = new RestService();
-        static State()
-        {
-            CallApi();
-        }
+
         public static Restaurant Get(int id)
         {
             return Restaurants.Find(x => x.Id == id);
         }
 
-        static async void CallApi()
-        {
-
-            Restaurants = await _RestService.GetRestaurants();
-
-        }
     }
 }

@@ -12,20 +12,28 @@ namespace EatNearMobile
     {
         List<CustomPin> customPins;
         RestService _RestService;
+
         public MapPage()
         {
             InitializeComponent();
+            CallApi();
             customMap.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(18.479896, -69.921108), Distance.FromMiles(4.0)));
             _RestService = new RestService();
-            LoadMarkers();
         }
 
+        async void CallApi()
+        {
+            var RestService = new RestService();
+            List<Restaurant> task = await RestService.GetRestaurants();
 
+            LoadMarkers(task);
 
-        async void LoadMarkers()
+        }
+
+        async void LoadMarkers(List<Restaurant> restaurants)
         {
             customMap.CustomPins = new List<CustomPin>();
-            foreach (var r in State.Restaurants)
+            foreach (var r in restaurants)
             {
                 var pin = new CustomPin
                 {

@@ -14,7 +14,7 @@ namespace EatNearMobile
         public RestService()
         {
             client = new HttpClient();
-            client.DefaultRequestHeaders.Add("Authorization", "Bearer 7faf8dd5-5247-4021-9cea-d7f34930b7d5");
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer 5913b341-f871-4bf2-9125-d9abb4feac97");
 
         }
 
