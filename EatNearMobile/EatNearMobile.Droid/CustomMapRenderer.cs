@@ -119,7 +119,7 @@ namespace EatNearMobile.Droid
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             base.OnElementPropertyChanged(sender, e);
-            if (e.PropertyName.Equals("VisibleRegion") && !isDrawn)
+            if (e.PropertyName.Equals("VisibleRegion") && !isDrawn && map != null)
             {
                 map.UiSettings.ZoomControlsEnabled = false;
                 map.Clear();

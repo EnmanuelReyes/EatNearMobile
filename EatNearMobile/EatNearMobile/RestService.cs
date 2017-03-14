@@ -11,11 +11,32 @@ namespace EatNearMobile
     public class RestService
     {
         HttpClient client;
+        public static string token { get; set; }
         public RestService()
         {
             client = new HttpClient();
-            client.DefaultRequestHeaders.Add("Authorization", "Bearer 5913b341-f871-4bf2-9125-d9abb4feac97");
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
 
+        }
+
+        public async Task<string> Login(string user, string password)
+        {
+            string token = null;
+            Dictionary<string, string> map = new Dictionary<string, string>();
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Add("Authorization", "Basic YWNtZTphY21lc2VjcmV0");
+            string payload = string.Format("username={0}&password={1}&grant_type=password", user, password);
+            var content = new StringContent(payload, Encoding.UTF8, "application/x-www-form-urlencoded");
+
+            var uri = new Uri(string.Format(Constants.Url, "/oauth/token"));
+            var response = await client.PostAsync(uri, content);
+            if (response.IsSuccessStatusCode)
+            {
+                var responseContent = await response.Content.ReadAsStringAsync();
+                map = JsonConvert.DeserializeObject<Dictionary<string, string>>(responseContent);
+                return map["access_token"];
+            }
+            return null;
         }
 
         public void LoadToken(string token)
@@ -64,13 +85,21 @@ namespace EatNearMobile
         public async Task<List<Restaurant>> GetRecommendedRestaurants()
         {
             var Restaurants = new List<Restaurant>();
-            var uri = new Uri(string.Format(Constants.RestUrl, "/user/recommendation"));
-            var response = await client.GetAsync(uri);
-            if (response.IsSuccessStatusCode)
+            try
             {
-                var content = await response.Content.ReadAsStringAsync();
-                Restaurants = JsonConvert.DeserializeObject<List<Restaurant>>(content);
+                var uri = new Uri(string.Format(Constants.RestUrl, "/user/recommendation"));
+                var response = await client.GetAsync(uri);
+                if (response.IsSuccessStatusCode)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                    Restaurants = JsonConvert.DeserializeObject<List<Restaurant>>(content);
+                }
             }
+            catch (Exception ignored)
+            {
+
+            }
+
             return Restaurants;
 
         }

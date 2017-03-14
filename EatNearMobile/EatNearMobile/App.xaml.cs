@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EatNearMobile.View;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,13 +30,25 @@ namespace EatNearMobile
         public App()
         {
             InitializeComponent();
-			var menuPage = new MenuPage();
+			/*var menuPage = new MenuPage();
 			NavigationPage = new NavigationPage(new MapPage());
 			RootPage = new RootPage();
 			RootPage.Master = menuPage;
 			RootPage.Detail = NavigationPage;
+            */
+            //MainPage = RootPage;
+            MainPage = new LoginPage();
+        }
 
-			MainPage = RootPage;
+        public void LoginSuccess()
+        {
+            var menuPage = new MenuPage();
+            NavigationPage = new NavigationPage(new MapPage());
+            RootPage = new RootPage();
+            RootPage.Master = menuPage;
+            RootPage.Detail = NavigationPage;
+
+            MainPage = RootPage;
         }
 
         protected override void OnStart()

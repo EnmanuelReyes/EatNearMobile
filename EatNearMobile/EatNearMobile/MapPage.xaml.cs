@@ -52,7 +52,7 @@ namespace EatNearMobile
         public async void OnTapGestureRecognizerTapped(object sender, EventArgs args)
         {
             List<Restaurant> restaurants = await _RestService.GetRecommendedRestaurants();
-            if (restaurants.Count < 0)
+            if (restaurants.Count <= 0)
             {
                 await DisplayAlert("Sin Recomendaciones", "Actualmente no tenemos ninguna recomendacion para usted."
                     + " Intente mas tarde", "OK");
